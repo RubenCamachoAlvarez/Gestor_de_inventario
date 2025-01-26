@@ -55,5 +55,3 @@ def leer_registros_productos(ruta_archivo):
 
         #Se cierra de manera implicita el flujo de datos establecido por el sistema operativo entre el archivo y la aplicacion.
 
-
-

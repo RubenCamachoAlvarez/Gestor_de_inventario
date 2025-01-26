@@ -26,11 +26,17 @@ def leer_numero_entero(mensaje_entrada):
 
             numero_entero = int(input(mensaje_entrada))
 
+            if(numero_entero < 0):
+
+                print("No se aceptan numeros enteros negativos", file=stderr)
+
+                continue
+
             #Si la cadena ingresa por el usuario es correctamente convertida a un tipo de dato entero, entonces salimos del bucle
 
             break
 
-        except TypeError:
+        except ValueError:
 
             #Si entrada del usuario no puede ser convertida a un entero, entonces se muestra el mensaje de error en la salida estandar de errores y se repite el ciclo nuevamente.
 
@@ -55,13 +61,23 @@ def leer_numero_decimal(mensaje_entrada):
 
             #Lectura del dato a partir de la entrada estandar y solicitud para que este sea transformado en un tipo de dato flotante.
 
-            numero_decimal = float(read(mensaje_entrada))
+            cadena_decimal = input(mensaje_entrada)
+
+            cadena_decimal = cadena_decimal[1:] if cadena_decimal[0] == "$" else cadena_decimal
+
+            numero_decimal = float(cadena_decimal)
+
+            if(numero_decimal < 0.0):
+
+                print("No se aceptan numeros decimales negativos.", file=stderr)
+
+                continue
 
             #Si la entrada es transformada correctamente a su representacion como tipo de dato flotante, entonces salimos del ciclo.
 
             break
 
-        except TypeError:
+        except ValueError:
 
             #En caso de que el proceso de conversion falle, entonces procedemos a mostrar el siguiente mensaje en la salida estandar de error. Y a continuacion se realiza una nueva iteracion en el ciclo repitiendo todo el proceso.
 
@@ -72,13 +88,31 @@ def leer_numero_decimal(mensaje_entrada):
     return numero_decimal
 
 
-def leer_cadena(mensaje_entrada):
+def leer_cadena(mensaje_entrada, maximo_numero_caracteres):
 
     """Esta funcion tiene el proposito de unicamente solicitar la lectura de una cadena de caracter al usuario a partir de la
     entrada estandar asignada al proceso en el cual se ejecuta este programa."""
 
-    cadena = read()
-
+    cadena = input(mensaje_entrada).strip()[0:maximo_numero_caracteres]
 
     return cadena
 
+
+def seleccionar_opcion(mensaje_seleccion, lista_opciones):
+
+    while True:
+
+        opcion_seleccionada = input(mensaje_seleccion)[0]
+
+        if opcion_seleccionada in lista_opciones:
+
+            break
+
+    return opcion_seleccionada
+
+
+def confirmar_operacion(mensaje_confirmacion):
+
+    opcion = seleccionar_opcion(mensaje_confirmacion + "[S/n]", ["s", "n", "S", "N"])
+
+    return True if opcion.lower() == "s" else False

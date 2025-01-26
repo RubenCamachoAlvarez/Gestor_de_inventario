@@ -6,7 +6,18 @@ la gestion del inventario.
 Del mismo modo, hace uso de los modulos para la captura de las entradas del usuario y para los mecanismo de entrada y salida
 hacia el archivo que almacena los datos del inventario, que pertenecen al paquete 'biblioteca' """
 
+from inventario import productos
+
+from biblioteca import Entrada_Usuario
+
 
 if __name__ == "__main__":
 
-    print("Hola mundo")
+    control = True
+
+
+    while control:
+
+        productos.agregar_nuevo_producto()
+
+        control = Entrada_Usuario.confirmar_operacion("¿Desea agregar un nuevo producto?")
