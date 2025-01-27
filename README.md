@@ -22,3 +22,9 @@ actualizacion de datos.
 
 Del mismo modo, el programa ofrece un mecanismo para preguntar al usuario si quiere repetir las operaciones de insercion, eliminacion o actualizacion
 de los productos una vez que son seleccionadas para evitar tener que regresar constantemente al menu principal de la aplicacion.
+
+
+FInalmente, en el siguiente enlace se puede encontrar este mismo proyecto subido a GitHub por si se quiere descargar desde este sitio.
+
+
+["Repositorio de GitHub personal"](https://github.com/RubenCamachoAlvarez/Gestor_de_inventario)
