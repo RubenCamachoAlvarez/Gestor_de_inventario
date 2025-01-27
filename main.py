@@ -23,6 +23,8 @@ if __name__ == "__main__":
 
         productos.agregar_nuevo_producto()
 
-        control = Entrada_Usuario.confirmar_operacion("¿Desea agregar un nuevo producto?")
+        # productos.buscar_producto_por_id_o_nombre()
+
+        control = Entrada_Usuario.confirmar_operacion("¿Desea repetir la operacion? ")
 
     productos.mostrar_lista_productos()

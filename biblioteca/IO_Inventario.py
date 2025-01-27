@@ -65,7 +65,7 @@ def leer_registros_productos(ruta_archivo):
 
                 datos = [campo.strip() for campo in registro.strip().split(",")]
 
-                producto = {"id": datos[0], "nombre": datos[1], "descripcion": datos[2], "cantidad_stock": datos[3], "precio": datos[4]}
+                producto = {"id": int(datos[0]), "nombre": datos[1], "descripcion": datos[2], "cantidad_stock": int(datos[3]), "precio": float(datos[4])}
 
                 lista_productos.append(producto)
 

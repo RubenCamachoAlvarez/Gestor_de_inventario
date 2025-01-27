@@ -113,6 +113,6 @@ def seleccionar_opcion(mensaje_seleccion, lista_opciones):
 
 def confirmar_operacion(mensaje_confirmacion):
 
-    opcion = seleccionar_opcion(mensaje_confirmacion + "[S/n]", ["s", "n", "S", "N"])
+    opcion = seleccionar_opcion(mensaje_confirmacion + "[S/n]: ", ["s", "n", "S", "N"])
 
     return True if opcion.lower() == "s" else False
