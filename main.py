@@ -19,9 +19,9 @@ if __name__ == "__main__":
 
     productos.mostrar_lista_productos()
 
-    productos.reporte_productos_bajo_stock(minimo_stock=200)
+    # productos.reporte_productos_bajo_stock(minimo_stock=200)
 
-    # while control:
+    while control:
 
         # productos.agregar_nuevo_producto()
 
@@ -29,6 +29,8 @@ if __name__ == "__main__":
 
         # productos.eliminar_producto()
 
-        # control = Entrada_Usuario.confirmar_operacion("¿Desea repetir la operacion? ")
+        productos.actualizar_informacion_producto()
 
-    # productos.mostrar_lista_productos()
+        control = Entrada_Usuario.confirmar_operacion("¿Desea repetir la operacion? ")
+
+    productos.mostrar_lista_productos()

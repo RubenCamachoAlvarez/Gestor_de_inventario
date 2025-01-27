@@ -307,3 +307,115 @@ def reporte_productos_bajo_stock(minimo_stock=10):
             print(f"{producto['nombre']: ^{_maximo_numero_caracteres_nombre}} {cantidad_stock: ^20} {minimo_stock - cantidad_stock: ^20}")
 
 
+
+
+
+def actualizar_informacion_producto():
+
+    global _maximo_numero_caracteres_nombre
+
+    global _maximo_numero_caracteres_descripcion
+
+    global _ruta_archivo_inventario_productos
+
+    print("\nActualizar informacion de productos\n")
+
+    id_producto = Entrada_Usuario.leer_numero_entero("Ingrese el ID del producto que quiere modificar: ")
+
+    producto = buscar_producto_por_id(id_producto)
+
+    if producto != None:
+
+        print("\nDatos originales del producto\n")
+
+        imprimir_tabla_productos([producto])
+
+        if Entrada_Usuario.confirmar_operacion("¿Desea proceder con la modificacion de la informacion de este producto? "):
+
+            modificacion = False
+
+            nuevos_datos = {"id" : producto['id'], 'nombre' : '', 'descripcion' : '', 'cantidad_stock' : 0, 'precio' : 0.0}
+
+            if(Entrada_Usuario.confirmar_operacion("¿Desea modificar el nombre del producto? ")):
+
+                modificacion = True
+                
+                nuevo_nombre = Entrada_Usuario.leer_cadena("Ingrese el nuevo nombre: ", _maximo_numero_caracteres_nombre)
+
+                nuevos_datos['nombre'] = nuevo_nombre
+
+
+            else:
+
+                nuevos_datos['nombre'] = producto['nombre']
+
+
+            if(Entrada_Usuario.confirmar_operacion("¿Desea modificar la descripcion del producto? ")): 
+
+                modificacion = True
+
+                nueva_descripcion = Entrada_Usuario.leer_cadena("Ingrese la nueva descripcion: ", _maximo_numero_caracteres_descripcion)
+
+                nuevos_datos['descripcion'] = nueva_descripcion
+
+            else:
+
+                nuevos_datos['descripcion'] = producto['descripcion']
+
+            
+            if(Entrada_Usuario.confirmar_operacion("¿Desea modificar la cantidad unidades que tiene este producto en stock? ")):
+
+                modificacion = True
+
+                nueva_cantidad_stock = Entrada_Usuario.leer_numero_entero("Ingrese la nueva cantidad de unidades en stock: ")
+
+                nuevos_datos['cantidad_stock'] = nueva_cantidad_stock
+
+            else:
+
+                nuevos_datos['cantidad_stock'] = producto['cantidad_stock']
+
+            if(Entrada_Usuario.confirmar_operacion("¿Desea modificar el precio del producto?")):
+
+                modificacion = True
+
+                nuevo_precio = Entrada_Usuario.leer_numero_decimal("Ingrese el nuevo precio del producto: ")
+
+                nuevos_datos['precio'] = nuevo_precio
+
+            else:
+
+                nuevos_datos['precio'] = producto['precio']
+
+            
+            if(modificacion == True and Entrada_Usuario.confirmar_operacion("¿Esta seguro de realizar la modificacion permanente de los datos? ")):
+
+                indice_modificacion = 0
+
+                for indice_producto in range(len(_lista_productos)):
+
+                    if _lista_productos[indice_producto] is producto:
+
+                        indice_modificacion = indice_producto
+
+                        break
+
+                _lista_productos[indice_producto] = nuevos_datos
+
+                IO_Inventario.escribir_registros_productos(_lista_productos, _ruta_archivo_inventario_productos)
+
+                print("\nDATOS CORRECTAMENTE MODIFICADOS\n")
+
+                print("Datos actualizados del producto")
+
+                imprimir_tabla_productos([nuevos_datos])
+
+            else:
+
+                print("\nNINGUNA MODIFICACION FUE LLEVADA A CABO\n", file=stderr)
+
+    else:
+
+        print(f"\nNo se encontro ningun producto con ID '{id_producto}'", file=stderr)
+
+
