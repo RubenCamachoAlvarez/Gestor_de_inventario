@@ -57,13 +57,21 @@ def agregar_nuevo_producto():
 
 def leer_lista_productos():
 
-    global _ID_ultimo_producto
-
     global _ruta_archivo_inventario_productos
 
     global _lista_productos
 
     _lista_productos = IO_Inventario.leer_registros_productos(_ruta_archivo_inventario_productos)
+
+    encontrar_ultimo_id_producto()
+
+
+
+def encontrar_ultimo_id_producto():
+
+    global _lista_productos
+
+    global _ID_ultimo_producto
 
     if len(_lista_productos) > 0:
 
@@ -223,6 +231,8 @@ def eliminar_producto():
 
     global _lista_productos
 
+    global _ruta_archivo_inventario_productos
+
     print("\nEliminar producto de inventario\n")
 
     if len(_lista_productos):
@@ -232,11 +242,25 @@ def eliminar_producto():
             mostrar_lista_productos()
 
 
-        id_producto = Entrada_Usuario.lee_numero_entero("\nIngrese el ID del producto que desea eliminar del inventario: ")
+        id_producto = Entrada_Usuario.leer_numero_entero("\nIngrese el ID del producto que desea eliminar del inventario: ")
 
         if buscar_producto_por_id(id_producto) != None and Entrada_Usuario.confirmar_operacion("¿Esta seguro de eliminar este producto permanentemente? "):
 
+            indice_eliminacion = 0
 
+            for indice_producto in range(len(_lista_productos)):
+
+                if _lista_productos[indice_producto]["id"] == id_producto:
+
+                    indice_eliminacion = indice_producto
+
+                    break
+
+            del _lista_productos[indice_eliminacion] #Eliminacion del producto de la lista de productos cargados en el programa.
+
+            IO_Inventario.escribir_registros_productos(_lista_productos, _ruta_archivo_inventario_productos)
+
+            encontrar_ultimo_id_producto()
 
     else:
 

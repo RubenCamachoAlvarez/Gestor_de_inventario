@@ -21,9 +21,11 @@ if __name__ == "__main__":
 
     while control:
 
-        productos.agregar_nuevo_producto()
+        # productos.agregar_nuevo_producto()
 
         # productos.buscar_producto_por_id_o_nombre()
+
+        productos.eliminar_producto()
 
         control = Entrada_Usuario.confirmar_operacion("¿Desea repetir la operacion? ")
 
