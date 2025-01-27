@@ -15,9 +15,14 @@ if __name__ == "__main__":
 
     control = True
 
+    productos.leer_lista_productos()
+
+    productos.mostrar_lista_productos()
 
     while control:
 
         productos.agregar_nuevo_producto()
 
         control = Entrada_Usuario.confirmar_operacion("¿Desea agregar un nuevo producto?")
+
+    productos.mostrar_lista_productos()

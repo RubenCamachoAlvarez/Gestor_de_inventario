@@ -5,6 +5,10 @@ datos a partir del archivo especificado como el archivo de inventario que almace
 
 """
 
+from os.path import exists, dirname
+
+from os import makedirs
+
 
 def escribir_registros_productos(lista_productos, ruta_archivo):
 
@@ -40,18 +44,36 @@ def leer_registros_productos(ruta_archivo):
 
     lista_productos = []
 
-    #Abrimos un flujo de datos en modo de lectura para recuperar los registros de productos almacenados dentro del archivo de inventario.
+    #Verificamos si existen todos los directorios intermedios (a partir de la ruta donde se ejecuto este programa) en donde debe de estar almacenado el
+    #archivo de inventario.
 
-    with open(ruta_archivo, "r") as inventario:
+    if not exists(dirname(ruta_archivo)):
 
-        for registro in inventario:
+        #Si estos directorios intermedio no existen, entonces procedemos a crearlos.
 
-            datos = [campo.strip() for campo in registro.strip().split(",")]
+        makedirs(dirname(ruta_archivo))
 
-            producto = {"id": datos[0], "nombre": datos[1], "descripcion": datos[2], "cantidad_stock": datos[3], "precio": datos[4]}
+    #Si el archivo en cuestion existen dentro del sistema de archivo, entonces procedemos a realizar su lectura.
+    
+    if exists(ruta_archivo):
 
-            lista_productos.append(producto)
+        #Abrimos un flujo de datos en modo de lectura para recuperar los registros de productos almacenados dentro del archivo de inventario.
+
+        with open(ruta_archivo, "r") as inventario:
+
+            for registro in inventario:
+
+                datos = [campo.strip() for campo in registro.strip().split(",")]
+
+                producto = {"id": datos[0], "nombre": datos[1], "descripcion": datos[2], "cantidad_stock": datos[3], "precio": datos[4]}
+
+                lista_productos.append(producto)
 
 
-        #Se cierra de manera implicita el flujo de datos establecido por el sistema operativo entre el archivo y la aplicacion.
+            #Se cierra de manera implicita el flujo de datos establecido por el sistema operativo entre el archivo y la aplicacion.
+
+    
+        #Retornamos una lista con los diferentes diccionarios que almacenan la informacion de los productos almacenados dentro del archivo.
+
+    return lista_productos
 

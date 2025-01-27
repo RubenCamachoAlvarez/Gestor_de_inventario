@@ -14,19 +14,26 @@ from biblioteca import Entrada_Usuario
 
 from biblioteca import IO_Inventario
 
-__ID_ultimo_producto = 0
+_ID_ultimo_producto = 0
 
-__lista_productos = []
+_lista_productos = []
+
+_ruta_archivo_inventario_productos = "./Inventario_Productos.dat"
+
 
 def agregar_nuevo_producto():
 
-    global __ID_ultimo_producto
+    global _ID_ultimo_producto
 
-    maximo_numero_caracteres_nombre = 20
+    global _ruta_archivo_inventario_productos
 
-    maximo_numero_caracteres_descripcion = 100
+    global _lista_productos
 
-    print("Registro de nuevo producto", end="\n\n")
+    maximo_numero_caracteres_nombre = 15
+
+    maximo_numero_caracteres_descripcion = 30
+
+    print("\nRegistro de nuevo producto\n")
 
     nombre = Entrada_Usuario.leer_cadena(f"Nombre (Maximo {maximo_numero_caracteres_nombre} caracteres): ", maximo_numero_caracteres_nombre)
 
@@ -36,11 +43,72 @@ def agregar_nuevo_producto():
 
     precio = Entrada_Usuario.leer_numero_decimal("Precio: ")
 
-    producto = {"id" : __ID_ultimo_producto, "nombre" : nombre, "descripcion" : descripcion, "cantidad_stock" : cantidad_stock, "precio" : precio}
+    producto = {"id" : _ID_ultimo_producto, "nombre" : nombre, "descripcion" : descripcion, "cantidad_stock" : cantidad_stock, "precio" : precio}
 
-    __lista_productos.append(producto)
+    _lista_productos.append(producto)
 
-    IO_Inventario.escribir_registros_productos(__lista_productos, "Inventario_Productos.dat")
+    IO_Inventario.escribir_registros_productos(_lista_productos, _ruta_archivo_inventario_productos)
 
-    __ID_ultimo_producto += 1
+    _ID_ultimo_producto += 1
 
+
+
+def leer_lista_productos():
+
+    global _ID_ultimo_producto
+
+    global _ruta_archivo_inventario_productos
+
+    global _lista_productos
+
+    _lista_productos = IO_Inventario.leer_registros_productos(_ruta_archivo_inventario_productos)
+
+
+def mostrar_lista_productos():
+
+    print("\nInventario de productos\n")
+
+    global _lista_productos
+
+    imprimir_tabla_productos(_lista_productos)
+
+
+def imprimir_tabla_productos(lista_productos):
+    
+    maximo_numero_caracteres_ID = 6
+    
+    maximo_numero_caracteres_nombre = 20
+    
+    maximo_numero_caracteres_descripcion = 35
+    
+    maximo_numero_caracteres_cantidad_stock = 20
+    
+    maximo_numero_caracteres_precio = 10
+
+    separador = f"+{'':-^{maximo_numero_caracteres_ID}}+{'':-^{maximo_numero_caracteres_nombre}}+{'':-^{maximo_numero_caracteres_descripcion}}+{'':-^{maximo_numero_caracteres_cantidad_stock}}+{'':-^{maximo_numero_caracteres_precio}}+"
+
+    encabezado = f"|{'ID': ^{maximo_numero_caracteres_ID}}|{'Nombre': ^{maximo_numero_caracteres_nombre}}|{'Descripcion': ^{maximo_numero_caracteres_descripcion}}|{'Cantidad en Stock': ^{maximo_numero_caracteres_cantidad_stock}}|{'Precio': ^{maximo_numero_caracteres_precio}}|"
+
+    print(separador)
+
+    print(encabezado)
+
+    print(separador)
+
+    for producto in lista_productos:
+
+        ID = producto['id']
+
+        nombre = producto['nombre']
+
+        descripcion = producto['descripcion']
+
+        cantidad_stock = producto['cantidad_stock']
+
+        precio = producto['precio']
+
+        formato_renglon = f"|{ID: ^{maximo_numero_caracteres_ID}}|{nombre: ^{maximo_numero_caracteres_nombre}}|{descripcion: ^{maximo_numero_caracteres_descripcion}}|{cantidad_stock: ^{maximo_numero_caracteres_cantidad_stock}}|{precio: ^{maximo_numero_caracteres_precio}}|"
+
+        print(formato_renglon)
+
+        print(separador)
