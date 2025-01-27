@@ -265,3 +265,45 @@ def eliminar_producto():
     else:
 
         print("\nNO HAY PRODUCTOS REGISTRADOS EN EL INVENTARIO\n", file=stderr)
+
+
+def reporte_productos_bajo_stock(minimo_stock=10):
+
+    """Esta funcion tiene el objetivo de presentar un reporte de aquellos productos que cuenten con un stock bajo dentro del inventario que se encuentra
+    cargado en el programa.
+
+    Para realizar esto, hemos declarado un argumento opcional el 'minimo_stock' el cual por defecto tiene un valor de 10, lo cual produce que todos aquellos
+    productos que tengan menos de 10 unidades en stock serán mostrados en el reporte.
+
+    Este reporte incluye el nombre del producto, la cantidad de unidades del producto que se tienen en stock y la diferencia que existe entre el stock que
+    se tiene en este momento del producto y la minima cantidad deseada.
+    
+    Finalmente, resta decir que este reporte se imprime en forma tabular.
+
+    """
+
+    global _lista_productos
+
+    global _maximo_numero_caracteres_nombre
+
+    print("="*50)
+
+    print(f"{'Reporte bajo stock': ^50}")
+
+    print("="*50)
+
+    print(f"\nMinimo stock: {minimo_stock}\n")
+
+    print(f"{'Nombre del producto': ^{_maximo_numero_caracteres_nombre}} {'Cantidad en stock': ^20} {'Diferencia faltante': ^20}")
+
+    print(f"-" * (_maximo_numero_caracteres_nombre + 50))
+
+    for producto in _lista_productos:
+
+        cantidad_stock = producto['cantidad_stock']
+
+        if cantidad_stock < minimo_stock:
+
+            print(f"{producto['nombre']: ^{_maximo_numero_caracteres_nombre}} {cantidad_stock: ^20} {minimo_stock - cantidad_stock: ^20}")
+
+
