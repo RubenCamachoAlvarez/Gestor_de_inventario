@@ -10,27 +10,77 @@ from inventario import productos
 
 from biblioteca import Entrada_Usuario
 
+def menu_opciones():
 
-if __name__ == "__main__":
+    print("\nMenu de opciones\n")
 
-    control = True
+    print("1. Imprimir todos los productos del inventario")
+
+    print("2. Agregar nuevo producto")
+
+    print("3. Actualizar datos de producto")
+
+    print("4. Eliminar producto")
+
+    print("5. Imprimir reporte de productos con un bajo stock")
+
+    print("6. Salir de la aplicacion")
+
+
+    opcion_menu = int(Entrada_Usuario.seleccionar_opcion("\nSeleccione una opcion del menu: ", ["1", "2", "3", "4", "5", "6"]))
+
+    return opcion_menu
+
+
+
+def bucle_menu_principal():
 
     productos.leer_lista_productos()
 
-    productos.mostrar_lista_productos()
+    print("\nSISTEMA GESTOR DE INVENTARIO\n")
 
-    # productos.reporte_productos_bajo_stock(minimo_stock=200)
+    while True:
 
-    while control:
+        opcion_seleccionada = menu_opciones()
 
-        # productos.agregar_nuevo_producto()
+        if opcion_seleccionada == 1:
 
-        # productos.buscar_producto_por_id_o_nombre()
+            productos.mostrar_lista_productos()
 
-        # productos.eliminar_producto()
+        elif opcion_seleccionada == 5:
 
-        productos.actualizar_informacion_producto()
+            productos.reporte_productos_bajo_stock()
 
-        control = Entrada_Usuario.confirmar_operacion("¿Desea repetir la operacion? ")
+        elif opcion_seleccionada < 6:
 
-    productos.mostrar_lista_productos()
+            while True:
+
+                if opcion_seleccionada == 2:
+
+                    productos.agregar_nuevo_producto()
+
+                elif opcion_seleccionada == 3:
+
+                    productos.actualizar_datos_producto()
+
+                elif opcion_seleccionada == 4:
+
+                    productos.eliminar_producto()
+
+                if not Entrada_Usuario.confirmar_operacion("¿Desea repetir la misma operacion? "):
+
+                    break
+    
+        elif opcion_seleccionada == 6:
+
+            break
+
+    print("\nHasta pronto\n")
+
+
+
+
+if __name__ == "__main__":
+
+    bucle_menu_principal()
+

@@ -102,11 +102,15 @@ def seleccionar_opcion(mensaje_seleccion, lista_opciones):
 
     while True:
 
-        opcion_seleccionada = input(mensaje_seleccion)[0]
+        opcion_seleccionada = input(mensaje_seleccion)
 
-        if opcion_seleccionada in lista_opciones:
+        if len(opcion_seleccionada) == 1 and opcion_seleccionada in lista_opciones:
 
             break
+
+        else:
+
+            print("Esta no es una opcion valida", file=stderr);
 
     return opcion_seleccionada
 

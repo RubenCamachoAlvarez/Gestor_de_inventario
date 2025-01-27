@@ -244,23 +244,31 @@ def eliminar_producto():
 
         id_producto = Entrada_Usuario.leer_numero_entero("\nIngrese el ID del producto que desea eliminar del inventario: ")
 
-        if buscar_producto_por_id(id_producto) != None and Entrada_Usuario.confirmar_operacion("¿Esta seguro de eliminar este producto permanentemente? "):
+        if buscar_producto_por_id(id_producto) != None:
 
-            indice_eliminacion = 0
+            if Entrada_Usuario.confirmar_operacion("¿Esta seguro de eliminar este producto permanentemente? "):
 
-            for indice_producto in range(len(_lista_productos)):
+                indice_eliminacion = 0
 
-                if _lista_productos[indice_producto]["id"] == id_producto:
+                for indice_producto in range(len(_lista_productos)):
 
-                    indice_eliminacion = indice_producto
+                    if _lista_productos[indice_producto]["id"] == id_producto:
 
-                    break
+                        indice_eliminacion = indice_producto
 
-            del _lista_productos[indice_eliminacion] #Eliminacion del producto de la lista de productos cargados en el programa.
+                        break
 
-            IO_Inventario.escribir_registros_productos(_lista_productos, _ruta_archivo_inventario_productos)
+                del _lista_productos[indice_eliminacion] #Eliminacion del producto de la lista de productos cargados en el programa.
 
-            encontrar_ultimo_id_producto()
+                IO_Inventario.escribir_registros_productos(_lista_productos, _ruta_archivo_inventario_productos)
+
+                encontrar_ultimo_id_producto()
+
+                print("\nEL PRODUCTO FUE ELIMINADO CORRECTAMENTE\n")
+
+        else:
+
+            print(f"\nNO EXISTE NINGUN PRODUCTO REGISTRADO EN EL INVENTARIO REGISTRADO CON EL ID '{id_producto}' SOLICITADO\n", file=stderr)
 
     else:
 
@@ -286,13 +294,15 @@ def reporte_productos_bajo_stock(minimo_stock=10):
 
     global _maximo_numero_caracteres_nombre
 
+    print()
+
     print("="*50)
 
     print(f"{'Reporte bajo stock': ^50}")
 
     print("="*50)
 
-    print(f"\nMinimo stock: {minimo_stock}\n")
+    print(f"\nA continuacion se listan los productos que cuentan con un stock inferior a {minimo_stock} unidades almacenadas en inventario\n")
 
     print(f"{'Nombre del producto': ^{_maximo_numero_caracteres_nombre}} {'Cantidad en stock': ^20} {'Diferencia faltante': ^20}")
 
@@ -310,7 +320,7 @@ def reporte_productos_bajo_stock(minimo_stock=10):
 
 
 
-def actualizar_informacion_producto():
+def actualizar_datos_producto():
 
     global _maximo_numero_caracteres_nombre
 
@@ -416,6 +426,6 @@ def actualizar_informacion_producto():
 
     else:
 
-        print(f"\nNo se encontro ningun producto con ID '{id_producto}'", file=stderr)
+        print(f"\nNO SE ENCONTRO NINGUN PRODUCTO CON EL ID '{id_producto}' SOLICITADO\n", file=stderr)
 
 
