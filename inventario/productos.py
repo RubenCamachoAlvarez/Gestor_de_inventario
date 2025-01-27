@@ -16,18 +16,31 @@ from biblioteca import Entrada_Usuario
 
 from biblioteca import IO_Inventario
 
+
+#Esta variable global almacena el ID del ultimo producto insertado en el inventario para conocer con que ID se debe de insertar un nuevo producto que sea registrado.
+
 _ID_ultimo_producto = 0
+
+#Esta lista global almacena todos los productos que son leidos a partir del archivo donde se realiza la persistencia de los datos agregados al inventario previamente.
 
 _lista_productos = []
 
+#Esta variable global almacena la ruta del archivo que sirve como el inventario donde se lleva a cabo el registro de todos los productos agregados previamente.
+
 _ruta_archivo_inventario_productos = "./Inventario_Productos.dat"
 
+#Esta variable global indica el maximo numero de caracteres que pueden tener los nombre de los productos que sean registrados.
+
 _maximo_numero_caracteres_nombre = 15
+
+#Esta variable global indica el maximo numero de caracteres que puede tener las descripciones de los productos.
 
 _maximo_numero_caracteres_descripcion = 30
 
 
 def agregar_nuevo_producto():
+
+    """Funcion que tiene la finalidad, como su nombre lo indica, el registrar un nuevo producto dentro del inventario."""
 
     global _ID_ultimo_producto
 
@@ -57,6 +70,9 @@ def agregar_nuevo_producto():
 
 def leer_lista_productos():
 
+    """Funcion la cual se encarga de leer el contenido del archivo que funge como inventario al iniciar la ejecucion de nuestro programa para cargar los
+    datos a la variable global _lista_productos, sobre la cual se realizaran el resto de acciones del programa."""
+
     global _ruta_archivo_inventario_productos
 
     global _lista_productos
@@ -68,6 +84,9 @@ def leer_lista_productos():
 
 
 def encontrar_ultimo_id_producto():
+
+    """Esta funcion es utilizada una vez que los elementos del inventario se han cargado al programa, para encontrar cual es el ID del ultimo producto
+    que se registro para saber con que ID debe de insertarse el siguiente producto."""
 
     global _lista_productos
 
@@ -86,6 +105,8 @@ def encontrar_ultimo_id_producto():
 
 def mostrar_lista_productos():
 
+    """Funcion que se encarga de mostrar la informacion de todos los productos del inventario en forma de tabla."""
+
     print("\nInventario de productos\n")
 
     global _lista_productos
@@ -94,6 +115,11 @@ def mostrar_lista_productos():
 
 
 def imprimir_tabla_productos(lista_productos):
+
+    """Funcion que se encarga de imprimir los datos de los diferentes productos dentro de la lista recibida como argumento, en una forma tabular que sea
+    facil de apreciar y analizar para el usuario."""
+
+    # Estas variables son utilizadas para indicar la minima cantidad de anchura que deben de tener cada uno de los campos de la tabla.
     
     maximo_numero_caracteres_ID = 6
     
@@ -105,7 +131,11 @@ def imprimir_tabla_productos(lista_productos):
     
     maximo_numero_caracteres_precio = 10
 
+    #Formato de los separadores con los que se forman la tabla.
+
     separador = f"+{'':-^{maximo_numero_caracteres_ID}}+{'':-^{maximo_numero_caracteres_nombre}}+{'':-^{maximo_numero_caracteres_descripcion}}+{'':-^{maximo_numero_caracteres_cantidad_stock}}+{'':-^{maximo_numero_caracteres_precio}}+"
+
+    #Formato del encabezado de la tabla.
 
     encabezado = f"|{'ID': ^{maximo_numero_caracteres_ID}}|{'Nombre': ^{maximo_numero_caracteres_nombre}}|{'Descripcion': ^{maximo_numero_caracteres_descripcion}}|{'Cantidad en Stock': ^{maximo_numero_caracteres_cantidad_stock}}|{'Precio': ^{maximo_numero_caracteres_precio}}|"
 
@@ -127,6 +157,8 @@ def imprimir_tabla_productos(lista_productos):
 
         precio = producto['precio']
 
+        #Formato de como se presentan cada uno de los renglones que exponen los datos de un producto en particular en la tabla.
+
         formato_renglon = f"|{ID: ^{maximo_numero_caracteres_ID}}|{nombre: ^{maximo_numero_caracteres_nombre}}|{descripcion: ^{maximo_numero_caracteres_descripcion}}|{cantidad_stock: ^{maximo_numero_caracteres_cantidad_stock}}|${precio: ^{maximo_numero_caracteres_precio-1}}|"
 
         print(formato_renglon)
@@ -135,6 +167,8 @@ def imprimir_tabla_productos(lista_productos):
 
 
 def buscar_producto_por_id(id_producto):
+
+    """Funcion que permite recuperar el producto asociado con el ID pasado como argumento."""
 
     global _lista_productos
 
@@ -150,6 +184,8 @@ def buscar_producto_por_id(id_producto):
 
 def buscar_producto_por_nombre(nombre_producto):
 
+    """Funcion que permite recuperar todos los productos cuyo nombre coincida totalmente o parcialmente con el nombre especificado como argumento."""
+
     global _lista_productos
 
     productos_coincidencia = []
@@ -164,6 +200,10 @@ def buscar_producto_por_nombre(nombre_producto):
 
 
 def buscar_producto_por_id_o_nombre():
+
+    """Funcion que permite localizar un producto ya sea por su nombre o por su ID.
+
+    Esta funcion le pregunta al usuario cual es la forma mas adecuada por la que quiere realizar el filtrado de los datos antes de proceder."""
 
     global _maximo_numero_caracteres_nombre
 
@@ -228,6 +268,10 @@ def buscar_producto_por_id_o_nombre():
 
 
 def eliminar_producto():
+
+    """Funcion que permite realizar la eliminacion de algun producto en especifico del inventario.
+
+    Esta funcion consulta al usuario confirmar la operacion de eliminacion antes de realizarla dentro del inventario."""
 
     global _lista_productos
 
@@ -321,6 +365,13 @@ def reporte_productos_bajo_stock(minimo_stock=10):
 
 
 def actualizar_datos_producto():
+
+    """Funcion que se encarga de realizar la actualizacion de los datos de un producto en especifico.
+
+    Esta funcion inicialmente le pregunta al usuario cual es el ID del producto que quiere eliminar. Posteriormente con base en esto, recuperara
+    el registro e ira preguntando si quiere o no editar alguno de los diferentes datos que componen la informacion del producto.
+
+    Finalmente volvera a solicitar confirmar si se quiere realizar la modificacion de los datos o no."""
 
     global _maximo_numero_caracteres_nombre
 

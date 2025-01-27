@@ -91,7 +91,11 @@ def leer_numero_decimal(mensaje_entrada):
 def leer_cadena(mensaje_entrada, maximo_numero_caracteres):
 
     """Esta funcion tiene el proposito de unicamente solicitar la lectura de una cadena de caracter al usuario a partir de la
-    entrada estandar asignada al proceso en el cual se ejecuta este programa."""
+    entrada estandar asignada al proceso en el cual se ejecuta este programa.
+
+    Un aspecto importante es que esta cadena recibe como segundo argumento el numero maximo de caracteres que deseamos que el usuario pueda ingresar en
+    la entrada. Si el usuario excede este limite, entonces solo se tomaran los primeros n caracteres que corresponde a ese numero maximo de caracteres
+    especificados."""
 
     cadena = input(mensaje_entrada).strip()[0:maximo_numero_caracteres]
 
@@ -99,6 +103,19 @@ def leer_cadena(mensaje_entrada, maximo_numero_caracteres):
 
 
 def seleccionar_opcion(mensaje_seleccion, lista_opciones):
+
+    """Esta funcion fue implementada para proporcionar un mecanismo general para poder seleccionar opciones de un menu.
+
+    Generalmente cuando se trabaja con menu en aplicaciones de consola es normal que se solicite al usuario ingresar una opcion del menu
+    que tipicamente estan representadas por numeros enteros o letras. Para esto mismo fue diseñado esta funcion.
+
+    Inicialmente despliega un prompt con el mensaje especificado como argumento durante la llamada a la funcion, y a continuacion espera
+    hasta que el usuario ingrese una entrada que debe de ser de un unico caracter (ya que en nuestro programa no tendremos menus con 2 o mas digitos,
+    por ejemplo).
+
+    Del mismo modo, el segundo argumento recibe una lista con todas las posibles opciones que el usuario puede ingresar. Una vez que el usuario introduzca
+    una opcion de un solo caracter, esta se comparara con los elementos de la lista y si corresponde con alguno, finalmente la funcion termina y retorna
+    la opcion seleccionada."""
 
     while True:
 
@@ -116,6 +133,12 @@ def seleccionar_opcion(mensaje_seleccion, lista_opciones):
 
 
 def confirmar_operacion(mensaje_confirmacion):
+
+    """Esta funcion esta diseñada para solicitar al usuario confirmar la realizar de una determinada operacion esperando a que ingrese una 'S' o 's' para
+    confirmar la operacion, o 'N' o 'n' para cancelarla o negar su ejecucion.
+
+    Esta funcion sera utilizada para solicitar la confirmacion al usuario para la realizacion de operaciones criticas como la eliminacion o
+    actualizacion de los datos de un producto."""
 
     opcion = seleccionar_opcion(mensaje_confirmacion + "[S/n]: ", ["s", "n", "S", "N"])
 

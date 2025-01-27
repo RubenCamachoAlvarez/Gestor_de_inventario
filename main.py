@@ -24,10 +24,12 @@ def menu_opciones():
 
     print("5. Imprimir reporte de productos con un bajo stock")
 
-    print("6. Salir de la aplicacion")
+    print("6. Buscar producto por nombre o por ID")
+
+    print("7. Salir de la aplicacion")
 
 
-    opcion_menu = int(Entrada_Usuario.seleccionar_opcion("\nSeleccione una opcion del menu: ", ["1", "2", "3", "4", "5", "6"]))
+    opcion_menu = int(Entrada_Usuario.seleccionar_opcion("\nSeleccione una opcion del menu: ", ["1", "2", "3", "4", "5", "6", "7"]))
 
     return opcion_menu
 
@@ -70,8 +72,12 @@ def bucle_menu_principal():
                 if not Entrada_Usuario.confirmar_operacion("¿Desea repetir la misma operacion? "):
 
                     break
-    
+
         elif opcion_seleccionada == 6:
+
+            productos.buscar_producto_por_id_o_nombre()
+    
+        elif opcion_seleccionada == 7:
 
             break
 

@@ -16,6 +16,17 @@ def escribir_registros_productos(lista_productos, ruta_archivo):
     los cuales finalmente son escritos dentro del archivo especificado en la ruta recibido como segundo argumento,
     de este modo garantizamos la persistencia de los datos al salir de la aplicacion."""
 
+
+    #Verificamos si existen todos los directorios intermedios (a partir de la ruta donde se ejecuto este programa) en donde debe de estar almacenado el
+    #archivo de inventario.
+
+    if not exists(dirname(ruta_archivo)):
+
+        #Si estos directorios intermedio no existen, entonces procedemos a crearlos.
+
+        makedirs(dirname(ruta_archivo))
+
+
     #Abrimos el archivo donde queremos realizar la escritura de los datos para sus persistencia.
 
     with open(ruta_archivo, "w") as inventario:
